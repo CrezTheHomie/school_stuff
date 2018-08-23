@@ -1,0 +1,26 @@
+
+dc3dd 7.2.641 started at 2017-09-06 14:36:05 -0400
+compiled options:
+command line: dc3dd if=/dev/sdc hof=SuncoastHi2.img log=SuncoastHi2.txt hash=sha256
+device size: 2062328 sectors (probed),    1,055,911,936 bytes
+sector size: 512 bytes (probed)
+
+dc3dd 7.2.641 started at 2017-09-06 14:37:53 -0400
+compiled options:
+command line: dc3dd if=/dev/sdc hof=SuncoastHi2.img log=SuncoastHi2.txt hash=sha256
+device size: 2062328 sectors (probed),    1,055,911,936 bytes
+sector size: 512 bytes (probed)
+  1055911936 bytes ( 1007 M ) copied ( 100% ), 74.7118 s, 13 M/s
+  1055911936 bytes ( 1007 M ) hashed ( 100% ), 4.40506 s, 229 M/s
+
+input results for device `/dev/sdc':
+   2062328 sectors in
+   0 bad sectors replaced by zeros
+   430cdb1c9e2980415f7041b0fa6309e86fb3fd383bb5713c1cfa175dd8795526 (sha256)
+
+output results for file `SuncoastHi2.img':
+   2062328 sectors out
+   [ok] 430cdb1c9e2980415f7041b0fa6309e86fb3fd383bb5713c1cfa175dd8795526 (sha256)
+
+dc3dd completed at 2017-09-06 14:39:08 -0400
+

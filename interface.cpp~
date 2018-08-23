@@ -1,0 +1,58 @@
+#include <iostream>
+#include <cstdlib>
+
+using namespace std
+
+/* This is where I'm going to put my thoughts and notes. This file is also going to be used for COP3530 class for problem 1a most likely */
+/* */
+class Deque{
+
+private:
+	string *queue;		//The array which holds the queue
+	int num_elements;	//Then umber of elements in the queue
+	int size_of_queue;	//The capacity of the queue
+	int front;		//Points to the front of the queue
+	int back;		//Points to the back of the queue
+
+	//Constructor
+	Deque() {
+	
+	}
+
+	//Destructor
+
+	*Deque(){
+	
+	}
+
+	//Inserts the element at the front of the queue.
+	void enqueue_front(string item){
+	
+	}
+
+	//Inserthe the element at the back of the queue
+	void enqueue_back(string item) {
+	
+	}
+
+	//Deletes the element at the front of the queue
+	string dequeue() {
+	
+	}
+
+	//Deletes the element at the back of the queue
+	string pop() {
+	
+	}
+
+	//Returns the number of elements in the queue
+	int size() {
+	
+	}
+
+	//Tells whether the queue is empty or not.
+	bool isEmpty() {
+	
+	}
+};
+

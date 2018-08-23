@@ -1,0 +1,7 @@
+I was told by my peers that we were required to submit a writeup in addition to the three log files.
+
+I followed the instructions for imaging the USB drive with the write blocker such that the sha256 hashes collided (stayed the same). I captured a .img image file and a .txt log file.
+
+I then imaged a USB drive without a write blocker and modified the underlying file system slightly, making sure to take an image and log file before and after the modification. This step shows how the hash values change each time a change is made to the file system, which occured because there was no write blocker to protect it.
+
+This lab made me realize just how fast sha256 is. It took us so long just to find collisions in sha1, so the magnitude of how powerful and quick sha256 is has been made clear to me.

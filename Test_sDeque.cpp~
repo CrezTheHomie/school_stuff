@@ -1,0 +1,12 @@
+#include "sDeque.h"
+#include <string.h>
+
+using namespace std;
+
+int main(){
+
+Deque* q = new Deque;
+q.enqueue_front("I'm item");
+
+return 0;
+}

@@ -1,0 +1,17 @@
+CC = g++
+DEBUG = -g
+CFLAGS = -Wall -c -o $(DEBUG)
+LFLAGS = -Wall $(DEBUG)
+
+all: tDeque
+
+tDeque: tDeque.o tDeque_main.o
+	$(CFLAGS) tDeque.o tDeque_main.o
+
+tDeque.o: tDeque.h
+	$(CC) $(CFLAGS) tDeque.h
+
+tDeque_main.o: tDeque_main.cpp
+	$(CC) $(CFLAGS) tDeque_main.cpp
+test:
+	g++ -o tDeque tDeque_main.cpp

@@ -1,0 +1,4 @@
+
+
+lin309-02.cise.ufl.edu : Sep  6 13:21:54 : krineer : user NOT in sudoers ; TTY=pts/36 ; PWD=/cise/homes/krineer ; USER=root ; COMMAND=/usr/bin/apt-get install telnet
+

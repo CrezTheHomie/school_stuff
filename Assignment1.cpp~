@@ -1,0 +1,8 @@
+#include <iostream>
+
+int main() {
+	int n; std::in >> n; int numRows = n; int numcols = n; int input[numRows][numCols];
+
+
+
+}

@@ -1,0 +1,75 @@
+#include <iostream>
+using namespace std;
+
+class Node{
+public:
+	int data;
+	Node * next;
+	Node(int x){
+		data = x;
+		next = NULL;
+	}
+};
+
+
+class linkedList{
+Node *head;
+public:
+	linkedList(){
+		head = NULL;
+	}
+	void addNode(int value){
+		Node *p;
+		if(head == NULL)
+			head = new Node (value);
+		else{
+			p=head;
+			while(p->next !=NULL)
+				p=p->next;
+			p->next = new Node (value);
+		}
+	}
+	void print(){
+		Node * p;
+		p = head;
+		while(p != NULL){
+			cout << p->data << "\n";
+			p = p->next;
+		}
+	}
+	void removeNode(int value) {
+		if(head == NULL){
+			return;
+		}
+		if(head->data == value){
+			head = head->next;
+			return;
+		}	
+		Node *p = head;
+			while(p->next->data != value){
+				p=p->next;
+				cout << p->data << "\n";
+			}
+			if (p->next->data == value){
+				cout << "I found it" << "\n";
+				p -> next = p->next->next;
+			}
+			else if (p-> == NULL) {
+				cout << "Value is not part of the linkedlist" << "\n";
+				return;
+			}
+	}
+};
+
+
+int main(void){
+	linkedList test;
+	test.addNode(4);
+	test.addNode(76);
+	test.addNode(12);
+	test.print();
+	test.removeNode(76);	
+	test.removeNode(99);
+	test.print();
+	return(0);
+}

@@ -1,0 +1,349 @@
+#include <iostream>
+#include <cstdlib>
+#include <limits>
+#include <iomanip>
+#include <math.h>
+
+using namespace std;
+
+/*	Oh man I didn't get this one nearly finished. I couldn't get more than one node to be inserted at a time and I couldn't figure out how to do best fit/worst fit properly. However, when you add things one at a time and remove them it works fine...	*/
+
+//Parameters of the Node called "tree" which has pointers that will store the next node and the previous node.
+struct tree {
+	int size;
+	string name;
+	tree *next;
+	tree *previous;
+};
+
+
+bool isEmpty(tree *root) {
+	if (root == NULL) {
+		return true;
+	} 
+	else {
+		return false;
+	}
+}
+//Menu is pretty self explanatory...
+char menu(){
+	char choice;
+
+	cout<< "\nMENU" <<endl;
+	cout << "1. Add program.\n";
+	cout << "2. Remove program.\n";
+	cout << "3. Fragmentation.\n";
+	cout << "4. Show the List.\n";
+	cout << "5. Exit.\n";
+
+	cin >> choice; 
+	return choice;
+}
+char findFit(){
+	char fit;
+
+	cout<< "\nWould you like Best Fit, or Worst fit?" <<endl;
+	cout << "1. Best Fit.\n";
+	cout << "2. Worst Fit.\n";
+	cin >> fit; 
+	return fit;
+}
+void bestFit(tree *&root,tree* &last, tree* &previous, double size, string name) {
+	int a = 0;
+	int mina = 32;
+	int gooda = 0;
+	 do {
+		//cout << "SO CLOSE" << endl;
+		if(last -> name == "Free") {
+			a += 1;
+			last = last -> previous;
+		} 
+
+		if (last -> name != "Free") {
+			if (a < mina) {
+				mina = a;
+				a = 0;
+				if (mina >= size) {
+					gooda = mina;
+					tree* math = new tree;
+					math -> size = 0;
+					math -> name = "math";
+					math -> next = last;
+					math -> previous = NULL;
+				}
+			}
+			cout <<"pretty much over";
+			last = last -> previous;
+			cout <<"it is over";
+		}
+		else if (last == root) {
+			 if(mina = 32) {
+					gooda = mina;
+					tree* math = new tree;
+					math -> size = 0;
+					math -> name = "math";
+					math -> next = last;
+					math -> previous = NULL;
+				}
+					
+		}
+	}while (last != root);
+}
+
+
+void worstFit(tree *&root,tree* &last, tree* &previous, double size, string name) {
+	int a = 1;
+	int maxa = 0;
+	do {
+		if(last -> name == "Free") {
+			a += 1;
+			if (last == root) {
+				if (a == 32) {
+					tree* math = new tree;
+					math -> size = 0;
+					math -> name = "math";
+					math -> next = last;
+					math -> previous = NULL;
+					cout << math -> next -> name;
+				}
+			}
+			last = last -> previous;
+			
+		} 
+		else if (last -> name != "Free") {
+			if (a > maxa) {
+				maxa = a;
+				a = 0;
+				tree* math = new tree;
+				math -> size = 0;
+				math -> name = "math";
+				math -> next = last;
+				math -> previous = NULL;
+			}
+			last = last -> previous;	
+		}
+		 
+	} while (last != root);
+}
+
+ //create the first spot in a linked list
+void insertAsFirstElement(tree *&root,tree* &last, tree* &previous, double size, string name){
+	tree *temp = new tree;
+	temp -> size = size;
+	temp -> name = name;
+	temp -> next = NULL;
+	temp -> previous = NULL;
+	root = temp;
+	last = temp;
+
+}
+
+//create 32 contiguous blocks of memory each of size 4
+void insertFreeSpace(tree *&root,tree* &last, tree* &previous, double size, string name){
+	if (isEmpty(root)) {
+		insertAsFirstElement(root, last, previous, size, name);
+	} else { 
+		tree *temp = new tree;
+		temp -> name = name;
+		temp -> size = size;
+		temp -> next = NULL;
+		last -> next = temp;
+		temp -> previous = last;
+		last = temp;
+	}
+
+}
+
+//set last was needed because last got confused when more than one thing was added into the list. Set last makes it so that last starts as the last element.
+void setLast(tree* &root, tree* &last) {
+	
+	if (root -> next == NULL) {
+		last = root;
+	} else {
+		setLast(root ->next, last);
+	}
+}
+
+
+//checks to see if the list is empty and if the block isfree. If not free, it will check the next block.
+void insert(tree *&root,tree* &last, tree* &previous, double size, string name){
+double block = ceil(size/4);
+	//If the tree has no roots,
+	if (isEmpty(root)) {
+		insertAsFirstElement(root, last, previous, size, name);
+	//If last name in list is not free, set last poointer to point to the previous
+	} else if (last -> name != "Free") {
+			last = last -> previous;
+			insert (root, last, last->previous, size, name);
+		}
+		//else create a new tree in which a temporary tree (like a christmas tree) has its pointers set to the right stuffs. 
+		else { 
+		cout << "size at start of insert.. " << size << "\n";
+		tree *temp = new tree;
+		temp -> name = name;
+		temp -> size = size;
+		cout << "Program added successfully " << ceil(size/4) << "page(s) used.\n";
+		temp -> next = last -> next;
+		temp -> previous = last -> previous;
+		last -> previous -> next = temp;
+		cout << "size after insert.. " << size << "\n";
+//If it last isn't actually pointing to the last in the list, run insert again so that we can put it in the right spot.
+			if (last -> next != NULL) {
+				last -> next -> previous = temp;
+			}
+		}	
+}
+
+void insertFit(tree *&root,tree* &last, tree* &previous, tree* &math, double size, string name, int fitfinal ){
+	if (fitfinal == 1) {
+		bestFit(root, last, previous, size, name);
+	} 
+	else if (fitfinal ==2) {
+		worstFit(root, last, previous, size, name);
+		tree *temp = new tree;
+		temp -> name = name;
+		temp -> size = size;
+		temp -> next = math ->next;
+		temp -> previous = math -> next -> previous;
+
+		for(int i=0; i>= size; i++){
+			insert(root, last, previous, size, name);
+		}
+	}
+
+	else if (last -> name != "Free") {
+			last = last -> previous;
+			insert (root, last, last->previous, size, name);
+		}
+
+}
+//double getSize(root, last, previous, name){
+	
+//}
+
+//Remove aka cutDownTree is pretty clear cut. Checks to see whether it is free or not, then if it isn't'free, looks to find if the name is equivalent to the inputted name and changes the name in the pointer to free if that is the case.
+//I'm going to make shorter comments. That was wordy...
+double cutDownTree(tree *&root,tree* &last, tree* &previous, double size, string name){
+	
+	 if (last -> name == name) {
+	 	last -> name = "Free";
+	}
+	else if(last-> previous -> name != "Free") { 
+		last = last -> previous;
+		cutDownTree (root, last, previous, size, name);
+
+	}
+}
+
+//print the list to the screen with setw
+void print(tree *current){
+	if(isEmpty(current)) {
+		cout << "\nThe list is empty.\n";
+	} else {
+		cout << "\nThe list contains: \n";
+		while (current != NULL) {
+			cout << setw(10) <<current->name ;
+			current = current ->next;
+		}
+	}
+
+}
+
+//a function which counts how many memory fragments there are
+void fragmentation(tree *current) {
+	int fragments = 0;
+	while (current != NULL) {
+			if (current -> name == "Free") {
+				if (current -> next == NULL) {
+					fragments +=1;
+					break;
+				}
+				if (current -> next -> name != "Free") {
+					fragments +=1;
+				}
+			}
+			current = current ->next;
+	}
+	cout<< "\nFragment count: "<< fragments << ".\n";
+}
+
+
+
+
+
+int main() {
+
+//initialization of variables
+	tree *root = NULL;
+	tree *last = NULL;
+	tree *previous = NULL;
+	tree *math = NULL;
+	char choice;
+	double size;
+	int fragments;
+	string name;
+	char fit;
+	int fitfinal;
+	
+		//create the free space
+		name = "Free";
+		size = 4;
+		for (int i=1; i<=32; i++) {
+			insertFreeSpace (root, last, previous, size, name);
+		}
+	
+	fit = findFit();
+	do {
+		switch(fit) {
+			case '1': cout<< "Thank you for choosing, BEST FIT! We hope you have a safe flight!\n";
+				fitfinal = 1;
+				bestFit(root, last, previous, size, name);
+				break;
+			case '2': cout<< "Thank you for choosing, WORST FIT!Please work!\n";
+				fitfinal = 2;
+				worstFit(root, last, previous, size, name);
+				break;
+			default: cout << "I gave you two choices.\n";
+		}
+	} while (fitfinal == 0);
+
+	do {
+		
+		//run the menu
+		choice = menu();
+
+		switch(choice) {
+			case '1':cout << "Please enter a name for you program: ";
+					cin >> name; 
+					cout << "Please enter a size for your program: ";
+					cin >> size;
+					setLast(root, last);
+					insert (root, last, previous, size, name);
+					break;
+
+			case '2': cout << "Please enter the name of the program you want to kill: ";
+					cin >> name;
+					if (name == "Free") {
+						cout << "\nDon't delete all the free memory.\n";
+						break;
+						}
+					setLast(root, last);
+					cout << "size at case 2.. " << size << "\n";
+					//getSize(root, last, previous, name);
+					cutDownTree (root, last, previous, size, name);
+					cout << "Program terminated." << size << " KBs freed" << "\n" ;
+					break; 
+
+			case '3': fragmentation(root);
+					break;		
+
+			case '4': print(root);
+					break;
+
+			
+			default: cout<< "System exit.\n";
+		}
+
+	} while (choice != '5');
+	return 0;
+}
